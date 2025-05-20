@@ -1,0 +1,20 @@
+version: 2
+sources:
+  - name: tpch
+    database: snowflake_sample_data
+    schema: tpch_sf1
+    tables:
+      - name: orders
+        description: "orders table from TPC-H benchmark"
+        columns:
+          - name: o_orderkey
+            test: 
+              - unique
+              - not_null
+      - name: lineitem
+        description: "lineitem table from TPC-H benchmark"
+        columns:
+          - name: l_orderkey
+            relationship:
+              to: ref('tpch','orders') 
+              field: o_orderkey
